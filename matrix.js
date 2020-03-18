@@ -9,8 +9,8 @@ var resizer;
 
 function setup(){
     resizer = createSlider(6,100,16,1);
-    resizer.size(100,16);
-    resizer.position(windowWidth/2-50,windowHeight/2);
+    resizer.size(200,16);
+    resizer.position((windowWidth/2)-100,windowHeight/2);
     resizer.elt.style.display = 'none';
 
     createCanvas(innerWidth,innerHeight);
@@ -33,6 +33,12 @@ function draw(){
     streams.forEach((s)=>s.draw(innerHeight));
     pop();
 
+    if(resizer.elt.style.display == 'block'){
+        push();
+        fill(255); textSize(60); text(resizer.value(),windowWidth/2,innerHeight/2+120);
+        pop();
+    }
+
 }
 
 function windowResized() {
@@ -43,9 +49,7 @@ function windowResized() {
 function touchEnded() {
 
     resizer.elt.style.display = (resizer.elt.style.display == 'none') ? 'block' : 'none';
-    push();
-    fill(255); textSize(60); text(resizer.value(),windowWidth/2,innerHeight/2+120);
-    pop();
+    
     if(resizer.value() != symbolSize ){
         symbolSize = resizer.value();
         let xs = -symbolSize/2;
