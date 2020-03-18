@@ -2,13 +2,17 @@ var symbolSize = 16;
 const fade = symbolSize*0.3;
 const MAXSPEED = innerHeight/50;
 const MAXCHANGE = 45;
-const STARTY = -2000
+const STARTY = -1000
 
 var streams = [];
 var resizer;
 
 function setup(){
-    // resizer = createSlider(1,)
+    resizer = createSlider(6,100,16,1);
+    resizer.size(30,16);
+    resizer.position(windowWidth/2,windowHeight/2);
+    resizer.elt.style.display = 'none';
+
     createCanvas(innerWidth,innerHeight);
     background(0);
     let xs = -symbolSize/2;
@@ -34,4 +38,18 @@ function draw(){
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
     setup();
-  }
+}
+
+function touchEnded() {
+
+    resizer.elt.style.display = (resizer.elt.style.display == 'none') ? 'block' : 'none';
+    push();
+    fill(255); textSize(60); text(resizer.value(),windowWidth/2,innerHeight/2+120);
+    pop();
+    if(resizer.value() != symbolSize ){
+        symbolSize = resizer.value();
+        let xs = -symbolSize/2;
+        streams  = Array.from( { length: Math.floor(width/symbolSize) }, () => new Stream(xs+=symbolSize,STARTY) );
+        textSize(symbolSize);
+    }
+}
