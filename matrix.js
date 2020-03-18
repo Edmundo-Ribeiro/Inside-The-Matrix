@@ -9,8 +9,8 @@ var resizer;
 
 function setup(){
     resizer = createSlider(6,100,16,1);
-    resizer.size(30,16);
-    resizer.position(windowWidth/2,windowHeight/2);
+    resizer.size(100,16);
+    resizer.position(windowWidth/2-50,windowHeight/2);
     resizer.elt.style.display = 'none';
 
     createCanvas(innerWidth,innerHeight);
